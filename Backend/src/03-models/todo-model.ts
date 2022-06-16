@@ -22,7 +22,7 @@ class TodoModel {
         id: Joi.number().forbidden(),
         title: Joi.string().required().min(4).max(30),
         content: Joi.string().optional().max(150),
-        userId: Joi.number().required(),
+        userId: Joi.number().optional(),
         statusId: Joi.number().required(),
         creationTime: Joi.date().required().min(new Date().toDateString())
     });

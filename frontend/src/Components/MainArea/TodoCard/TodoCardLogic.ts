@@ -43,7 +43,7 @@ const updateTodo = async (todoContent: string, todoTitle: string, todoUserId: nu
         if(todoContent !== props?.todo.content) props.todo.content = todoContent;
         if(todoTitle !== props?.todo.title) props.todo.title = todoTitle;
         if(todoUserId !== props?.todo.userId) props.todo.userId = todoUserId;
-    
+        
         
         if(props?.todo.title === undefined || 
             props?.todo.content === undefined || 
@@ -51,17 +51,21 @@ const updateTodo = async (todoContent: string, todoTitle: string, todoUserId: nu
             props?.todo.statusId === undefined) return;
             
             todosService.editTodo(props.todo);
+        }
+        catch(err: any) {
+            console.error(err);
+        }
     }
-    catch(err: any) {
-        console.error(err);
-    }
-}
-
-const createTodo = async (todo: TodoModel) => {
-    try {
-        todoStore.editTodo(todo);
-        console.log(todo);
-        // await todosService.createTodo(todo);
+    
+    const createTodo = async (todoContent: string, todoTitle: string, todoUserId: number, props: TodoCardProps) => {
+        try {
+        if(todoContent !== props?.todo.content) props.todo.content = todoContent;
+        if(todoTitle !== props?.todo.title) props.todo.title = todoTitle;
+        if(todoUserId !== props?.todo.userId) props.todo.userId = todoUserId;
+        
+        props.todo.id = undefined;
+        const newTodo = await todosService.createTodo(props.todo);
+        todoStore.editTodo(newTodo);
     }
     catch(err: any) {
         console.error(err);

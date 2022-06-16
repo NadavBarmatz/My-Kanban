@@ -6,6 +6,7 @@ import { StatusEnum } from "../../../Models/StatusEnum";
 import usersStore from "../../../MOBX/UsersStore";
 import TodoCardLogic from "./TodoCardLogic";
 import todoStore from "../../../MOBX/TodoStore";
+import { observer } from "mobx-react";
 
 
 export interface TodoCardProps {
@@ -13,7 +14,7 @@ export interface TodoCardProps {
     passToParent: Function;
 }
 
-function TodoCard(props: TodoCardProps): JSX.Element {
+const TodoCard = observer((props: TodoCardProps): JSX.Element => {
     
     const [todoClass, handleTodoClass] = useState<string>();
     const [todoContent, setTodoContent] = useState<string>(props.todo?.content);
@@ -47,7 +48,7 @@ function TodoCard(props: TodoCardProps): JSX.Element {
     const handleUserChange = (e: SyntheticEvent) => TodoCardLogic.handleUserChange(e, setTodoUserId);
     
     const updateTodo = () => TodoCardLogic.updateTodo(todoContent, todoTitle, todoUserId, props);
-    const createTodo = () => TodoCardLogic.createTodo(props.todo);
+    const createTodo = () => TodoCardLogic.createTodo(todoContent, todoTitle, todoUserId, props);
     
     const createOrUpdate = () => {
         if(props.todo.id === -1) return createTodo();
@@ -67,7 +68,6 @@ function TodoCard(props: TodoCardProps): JSX.Element {
                 {
                     pickUserState ?
                     <select defaultValue={todoUserId} onChange={handleUserChange} onBlur={() => {setPickUserState(false); createOrUpdate();}}>
-                        <option value={undefined}>Choose</option>
                         {usersStore.users.map(user => <option key={user.id} value={user.id}>{user.username}</option>)}
                     </select> :
                     <p className="username-paragraph" onClick={()=>{setPickUserState(true)}}>{props.todo?.username}</p>
@@ -76,6 +76,6 @@ function TodoCard(props: TodoCardProps): JSX.Element {
                 <p>{props.todo?.creationTime}</p>
         </div>
     );
-}
+})
 
 export default TodoCard;

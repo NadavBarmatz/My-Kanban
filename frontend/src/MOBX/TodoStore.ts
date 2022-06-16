@@ -19,6 +19,7 @@ class TodoStore {
 
     public editTodo(todo: TodoModel): void {
         const index = this.todoArr.findIndex(t => t.id === todo.id);
+        console.log("From Store: ", this.todoArr[index]);
         this.todoArr[index] = todo;
     }
 
