@@ -22,3 +22,7 @@
     justify-content: space-around;
     margin: 20px auto;
 }
+
+.Login .warning {
+    color: var(--Red);
+}

@@ -1,4 +1,6 @@
 :root {
+  --Link: hsl(197,75%,60%);
+  
   --Black: rgb(43, 43, 46);
   --Light: hsl(206,41%,97%);
   --White: hsl(0,0%,100%);
@@ -9,14 +11,14 @@
   --Teal: hsl(197,75%,78%);
   --Red: hsl(359,74%,83%);
   --Grey: hsl(240,6%,93%);
-
+  
   --GradOrange: hsl(22,60%,90%);
   --GradGreen: hsl(153,50%,90%);
   --GradPink: hsl(310,50%,90%);
   --GradPurple: hsl(267,60%,90%);
   --GradTeal: hsl(197,65%,90%);
   --GradRed: hsl(359,64%,90%);
-
+  
   --font200: 'Poppins', sans-serif;
 }
 
@@ -38,7 +40,7 @@ p, h1, h2, h3, h4, h5, h6, ul, ol, li, button, input, textarea, label, span {
 a {
   font-family: var(--font200);
   text-decoration: none;
-  color: var();
+  color: var(--Link);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -53,6 +55,14 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--Red);
 }
 
+button {
+  width: 20%;
+  border: none;
+  border-radius: 10px;
+  padding: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.75);
+}
+
 button:hover {
   cursor: pointer;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.75);
@@ -63,10 +73,25 @@ button:active {
   transform: translate(2px, 2px);
 }
 
-button {
-  width: 20%;
-  border: none;
-  border-radius: 10px;
-  padding: 5px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.75);
+button:disabled {
+  background-color: var(--Grey);
+  cursor: not-allowed;
+  box-shadow: none;
+  border: 0.5px solid var(--Black);
+}
+
+button:disabled:hover {
+  box-shadow: none;
+}
+
+button:disabled:active {
+  box-shadow: none;
+  transform: translate(0px, 0px);
+
+}
+
+form span {
+  color: var(--Red);
+  display: block;
+  margin: 0 0 10px 0;
 }

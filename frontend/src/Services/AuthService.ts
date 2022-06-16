@@ -8,13 +8,14 @@ class AuthService {
     public async login(credentials: CredentialsModel): Promise<string> {
         const res = await axios.post<string>(config.urls.login, credentials);
         const token = res.data;
+        authStore.login(token);
         return token;
     }
     
     public async register(user: UserModel): Promise<string> {
         const res = await axios.post<string>(config.urls.register, user);
         const token = res.data;
-        authStore.login(token);
+        authStore.register(token);
         return token;
     }
 }

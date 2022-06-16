@@ -28,7 +28,7 @@ class UserModel {
         username: Joi.string().required().min(2).max(15),
         email: Joi.string().email({minDomainSegments: 2, tlds: {allow: ['com', 'net', 'co.il']}}),
         title: Joi.string().optional(),
-        password: Joi.string().required(),
+        password: Joi.string().min(4).required(),
         role: Joi.number().required()
     });
 
@@ -39,7 +39,7 @@ class UserModel {
         username: Joi.string().required().min(2).max(15),
         email: Joi.string().email({minDomainSegments: 2, tlds: {allow: ['com', 'net', 'co.il']}}),
         title: Joi.string().required(),
-        password: Joi.string().required(),
+        password: Joi.string().min(4).required(),
         role: Joi.number().required()
     });
 
