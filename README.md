@@ -1,4 +1,4 @@
-`Todo Board`
+## `Todo Board`
 
 This project is my implementation of a drag and drop Kanban board.
 
