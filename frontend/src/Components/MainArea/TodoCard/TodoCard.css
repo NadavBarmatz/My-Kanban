@@ -1,0 +1,49 @@
+.TodoCard {
+    width: 50%;
+    margin: 15px auto;
+    padding: 10px;
+    border-radius: 15px;
+    cursor: grab;
+}
+
+.TodoCard.pending {
+    background-image: linear-gradient(135deg, var(--Purple), var(--GradPurple));
+}
+
+.TodoCard.progress {
+    background-image: linear-gradient(135deg, var(--Orange), var(--GradOrange));
+}
+
+.TodoCard.waiting {
+    background-image: linear-gradient(135deg, var(--Teal), var(--GradTeal));
+}
+
+.TodoCard.completed {
+    background-image: linear-gradient(135deg, var(--Green), var(--GradGreen));
+}
+
+.delete-icon {
+    cursor: default;
+}
+
+.TodoCard textarea {
+    resize: none;
+    background-color: transparent;
+    border: none;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+.TodoCard .content {
+    padding: 2%;
+}
+
+.TodoCard .title {
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.TodoCard .username-paragraph:hover {
+    cursor: pointer;
+}

@@ -1,0 +1,22 @@
+.MainBoard {
+    padding: 2%;
+    height: 100vh;
+}
+
+.board {
+    background-color: var(--Light);
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.box {
+    border: 1px solid var(--Black);
+    overflow: hidden;
+}
+
+.todos {
+    overflow-y: auto;
+    height: calc(100% - 28pt);
+    cursor: cell;
+}

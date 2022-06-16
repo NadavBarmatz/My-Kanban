@@ -1,0 +1,6 @@
+.Footer {
+	background-color: var(--Purple);
+    height: 100%;
+    display: grid;
+    align-content: center;
+}

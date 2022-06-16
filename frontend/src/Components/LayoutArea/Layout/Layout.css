@@ -1,0 +1,9 @@
+.Layout {
+	height: fit-content;
+    display: grid;
+    grid-template-rows: 20vh 5vh auto 5vh;
+}
+
+main {
+    min-height: 70vh;
+}

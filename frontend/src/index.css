@@ -1,0 +1,72 @@
+:root {
+  --Black: rgb(43, 43, 46);
+  --Light: hsl(206,41%,97%);
+  --White: hsl(0,0%,100%);
+  --Orange: hsl(22,75%,84%);
+  --Green: hsl(153,67%,76%);
+  --Pink: hsl(310,60%,80%);
+  --Purple: hsl(267,76%,84%);
+  --Teal: hsl(197,75%,78%);
+  --Red: hsl(359,74%,83%);
+  --Grey: hsl(240,6%,93%);
+
+  --GradOrange: hsl(22,60%,90%);
+  --GradGreen: hsl(153,50%,90%);
+  --GradPink: hsl(310,50%,90%);
+  --GradPurple: hsl(267,60%,90%);
+  --GradTeal: hsl(197,65%,90%);
+  --GradRed: hsl(359,64%,90%);
+
+  --font200: 'Poppins', sans-serif;
+}
+
+html, body, * {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var();
+  text-align: center;
+}
+
+p, h1, h2, h3, h4, h5, h6, ul, ol, li, button, input, textarea, label, span {
+  font-family: var(--font200);
+  color: var(--Black);
+}
+
+a {
+  font-family: var(--font200);
+  text-decoration: none;
+  color: var();
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font200);
+}
+
+.btn-success {
+  background-color: var(--Green);
+}
+
+.btn-error {
+  background-color: var(--Red);
+}
+
+button:hover {
+  cursor: pointer;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.75);
+}
+
+button:active {
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.75);
+  transform: translate(2px, 2px);
+}
+
+button {
+  width: 20%;
+  border: none;
+  border-radius: 10px;
+  padding: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.75);
+}

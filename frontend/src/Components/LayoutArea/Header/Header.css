@@ -1,0 +1,12 @@
+.Header {
+	height: 100%;
+    display: grid;
+    align-content: center;
+    
+}
+
+.Header h1 {
+    font-size: max(8vw, 4em);
+    color: var(--Purple);
+    text-shadow: 5px 5px var(--Light);
+}
