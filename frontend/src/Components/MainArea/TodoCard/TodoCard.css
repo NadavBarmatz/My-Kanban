@@ -6,6 +6,11 @@
     cursor: grab;
 }
 
+.TodoCard > .title,
+.TodoCard > .content {
+    text-align: left;
+}
+
 .TodoCard.pending {
     background-image: linear-gradient(135deg, var(--Purple), var(--GradPurple));
 }
@@ -22,13 +27,20 @@
     background-image: linear-gradient(135deg, var(--Green), var(--GradGreen));
 }
 
-.delete-icon {
+.control-btn {
     cursor: default;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.save-icon,
+.delete-icon {
+    cursor: pointer;
 }
 
 .TodoCard textarea {
     resize: none;
-    background-color: transparent;
     border: none;
     width: 100%;
     box-sizing: border-box;

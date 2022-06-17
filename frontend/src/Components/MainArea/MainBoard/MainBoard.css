@@ -3,6 +3,14 @@
     height: 100vh;
 }
 
+.MainBoard > .new-todo {
+    text-align: left;
+}
+
+.MainBoard > .new-todo > .add-btn {
+    cursor: pointer;
+}
+
 .board {
     background-color: var(--Light);
     height: 100%;

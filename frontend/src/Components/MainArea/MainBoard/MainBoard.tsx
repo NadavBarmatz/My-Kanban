@@ -1,5 +1,5 @@
 import { observer } from "mobx-react";
-import React, { SyntheticEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import todoStore from "../../../MOBX/TodoStore";
 import usersStore from "../../../MOBX/UsersStore";
 import { StatusEnum } from "../../../Models/StatusEnum";
@@ -8,6 +8,7 @@ import todosService from "../../../Services/TodosService";
 import usersService from "../../../Services/UsersService";
 import DeleteModal from "../Modals/DeleteModal/DeleteModal";
 import TodoCard from "../TodoCard/TodoCard";
+import AddIcon from '@mui/icons-material/Add';
 import "./MainBoard.css";
 
 const MainBoard = observer((): JSX.Element => {
@@ -56,53 +57,45 @@ const MainBoard = observer((): JSX.Element => {
         }
     }
 
-    const createNewTodoCard = (e: SyntheticEvent) => {
-        // Make sure doubleClick:
-        if ((e as any).detail === 2) {
-            if (todoStore.newTodoState === true) {
-                todoStore.deleteTodo(undefined);
-            }
-            todoStore.changeNewTodoState(true);
-            //    Get status value from dataset:
-            const columnStatus: string = e.currentTarget.attributes[1].value;
-            // create new todo instance:
-            const newTodo = new TodoModel();
-            // fill in start fields:
-            newTodo.status = columnStatus;
-            newTodo.statusId = StatusEnum[(columnStatus as "Pending")];
-            newTodo.title = "TITLE";
-            newTodo.content = "CONTENT...";
-            newTodo.username = "Choose..";
-            newTodo.id = -1;
-            // add only to mobX to render
-            todoStore.addTodo(newTodo);
-        }
+    const addNewCard = () => {
+        if(todoStore.newTodoState === true) todoStore.deleteTodo(undefined);
+        todoStore.changeNewTodoState(true);
+        const newTodo = new TodoModel();
+        newTodo.statusId = 1;
+        newTodo.status = "Pending";
+        newTodo.title = "Title";
+        newTodo.content = "Content";
+        todoStore.addTodo(newTodo)
+        
     }
 
     return (
         <div className="MainBoard">
+            <div className="new-todo">
+                <AddIcon className="add-btn" onClick={addNewCard} />
+            </div>
             <div className="board">
                 <div className="box pending" onDragOver={(e) => { updateTodoStatus(1, e) }} onDragEnd={updateTodo}>
                     <h2>Pending</h2>
-                    <div className="todos" data-status="Pending" onClick={createNewTodoCard}>
+                    <div className="todos" data-status="Pending">
                         {todos?.map((todo) => todo.statusId === 1 ? <TodoCard key={todo.id} passToParent={handleDraggableId} todo={todo} /> : null)}
                     </div>
                 </div>
                 <div className="box in-progress" onDragOver={(e) => { updateTodoStatus(2, e) }} onDragEnd={updateTodo}>
                     <h2>In Progress</h2>
-                    <div className="todos" data-status="In progress" onClick={createNewTodoCard}>
+                    <div className="todos" data-status="In progress">
                         {todos?.map((todo) => todo.statusId === 2 ? <TodoCard key={todo.id} passToParent={handleDraggableId} todo={todo} /> : null)}
                     </div>
                 </div>
                 <div className="box waiting-for-review" onDragOver={(e) => { updateTodoStatus(3, e) }} onDragEnd={updateTodo}>
                     <h2>Waiting For Review</h2>
-                    <div className="todos" data-status="Waiting for review" onClick={createNewTodoCard}>
+                    <div className="todos" data-status="Waiting for review">
                         {todos?.map((todo) => todo.statusId === 3 ? <TodoCard key={todo.id} passToParent={handleDraggableId} todo={todo} /> : null)}
                     </div>
                 </div>
                 <div className="box completed" onDragOver={(e) => { updateTodoStatus(4, e) }} onDragEnd={updateTodo}>
                     <h2>Completed</h2>
-                    <div className="todos" data-status="Completed" onClick={createNewTodoCard}>
+                    <div className="todos" data-status="Completed">
                         {todos?.map((todo) => todo.statusId === 4 ? <TodoCard key={todo.id} passToParent={handleDraggableId} todo={todo} /> : null)}
                     </div>
                 </div>

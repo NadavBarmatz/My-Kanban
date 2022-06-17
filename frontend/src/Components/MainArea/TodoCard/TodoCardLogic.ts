@@ -4,6 +4,7 @@ import { ModalStore } from '../../../MOBX/ModalStore';
 import { SyntheticEvent } from 'react';
 import todosService from '../../../Services/TodosService';
 import TodoModel from '../../../Models/TodoModel';
+import usersStore from '../../../MOBX/UsersStore';
 
 const handleDragStart = (props: TodoCardProps) => {
     props.passToParent(props.todo.id);
@@ -31,11 +32,14 @@ const handleTitleChange = (e: SyntheticEvent, setTodoTitle: Function) => {
     textareaElement.style.height = textareaElement.scrollHeight + 'px';
 }
 
-const handleUserChange = (e: SyntheticEvent, setTodoUserId: Function) => {
+const handleUserChange = (e: SyntheticEvent, setTodoUserId: Function, setTodoUsername: Function) => {
     const userId = +(e.target as HTMLSelectElement).value;
     if(userId === undefined) return;
     console.log("userId", userId);
+    const username = usersStore.users.find(user => user.id === userId)?.username
+    console.log("username", username);
     setTodoUserId(userId);
+    setTodoUsername(username);
 }
 
 const updateTodo = async (todoContent: string, todoTitle: string, todoUserId: number, props: TodoCardProps) => {
@@ -59,13 +63,13 @@ const updateTodo = async (todoContent: string, todoTitle: string, todoUserId: nu
     
     const createTodo = async (todoContent: string, todoTitle: string, todoUserId: number, props: TodoCardProps) => {
         try {
-        if(todoContent !== props?.todo.content) props.todo.content = todoContent;
-        if(todoTitle !== props?.todo.title) props.todo.title = todoTitle;
-        if(todoUserId !== props?.todo.userId) props.todo.userId = todoUserId;
-        
-        props.todo.id = undefined;
-        const newTodo = await todosService.createTodo(props.todo);
-        todoStore.editTodo(newTodo);
+            if(todoContent !== props?.todo.content) props.todo.content = todoContent;
+            if(todoTitle !== props?.todo.title) props.todo.title = todoTitle;
+            if(todoUserId !== props?.todo.userId) props.todo.userId = todoUserId;
+            
+            props.todo.id = undefined;
+            const newTodo = await todosService.createTodo(props.todo);
+            todoStore.editTodo(newTodo);
     }
     catch(err: any) {
         console.error(err);

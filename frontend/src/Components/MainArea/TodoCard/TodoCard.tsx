@@ -2,6 +2,7 @@ import { SyntheticEvent, useEffect, useState } from "react";
 import TodoModel from "../../../Models/TodoModel";
 import "./TodoCard.css";
 import CloseIcon from '@mui/icons-material/Close';
+import SaveIcon from '@mui/icons-material/Save';
 import { StatusEnum } from "../../../Models/StatusEnum";
 import usersStore from "../../../MOBX/UsersStore";
 import TodoCardLogic from "./TodoCardLogic";
@@ -20,8 +21,11 @@ const TodoCard = observer((props: TodoCardProps): JSX.Element => {
     const [todoContent, setTodoContent] = useState<string>(props.todo?.content);
     const [todoTitle, setTodoTitle] = useState<string>(props.todo?.title);
     const [todoUserId, setTodoUserId] = useState<number>(props.todo?.userId);
+    const [todoUsername, setTodoUsername] = useState<string>(props.todo?.username);
 
     const [pickUserState, setPickUserState] = useState<boolean>(false);
+    const [contentWritableState, setContentWritableState] = useState<boolean>(false);
+    const [titleWritableState, setTitleWritableState] = useState<boolean>(false);
 
     // Set todo CSS class for coloring: 
     useEffect(()=>{ 
@@ -45,33 +49,48 @@ const TodoCard = observer((props: TodoCardProps): JSX.Element => {
     const handleDeleteModal = () => TodoCardLogic.handleDeleteModal(props);
     const handleContentChange = (e: SyntheticEvent) => TodoCardLogic.handleContentChange(e, setTodoContent);
     const handleTitleChange = (e: SyntheticEvent) => TodoCardLogic.handleTitleChange(e, setTodoTitle);
-    const handleUserChange = (e: SyntheticEvent) => TodoCardLogic.handleUserChange(e, setTodoUserId);
+    const handleUserChange = (e: SyntheticEvent) => TodoCardLogic.handleUserChange(e, setTodoUserId, setTodoUsername);
     
     const updateTodo = () => TodoCardLogic.updateTodo(todoContent, todoTitle, todoUserId, props);
     const createTodo = () => TodoCardLogic.createTodo(todoContent, todoTitle, todoUserId, props);
     
     const createOrUpdate = () => {
-        if(props.todo.id === -1) return createTodo();
+        if(props.todo.id === undefined) return createTodo();
         updateTodo()
     }
 
     return (
         <div 
-            draggable={true} onClick={(e)=>{e.stopPropagation()}} 
+            draggable={true} onDoubleClick={(e)=>{e.stopPropagation()}} onClick={(e)=>{e.stopPropagation()}} 
             onDragStart={handleDragStart} 
             className={`TodoCard ${todoClass}`}
         >
-            <CloseIcon className="delete-icon" onClick={handleDeleteModal} />
-            <textarea className="title" spellCheck={false} value={todoTitle} onChange={handleTitleChange} onBlur={createOrUpdate}>
-            </textarea>
-                <textarea className="content" onChange={handleContentChange} onBlur={createOrUpdate} value={todoContent} />
-                {
-                    pickUserState ?
-                    <select defaultValue={todoUserId} onChange={handleUserChange} onBlur={() => {setPickUserState(false); createOrUpdate();}}>
-                        {usersStore.users.map(user => <option key={user.id} value={user.id}>{user.username}</option>)}
-                    </select> :
-                    <p className="username-paragraph" onClick={()=>{setPickUserState(true)}}>{props.todo?.username}</p>
-                }
+            <div className="control-btn">
+                <SaveIcon className="save-icon" onClick={createOrUpdate} />
+                <CloseIcon className="delete-icon" onClick={handleDeleteModal} />
+            </div>
+
+            {
+                titleWritableState ?
+                <textarea className="title" spellCheck={false} value={todoTitle} onChange={handleTitleChange} onBlur={()=>{setTitleWritableState(false)}} />
+                :
+                <h3 className="title" onDoubleClick={()=>{setTitleWritableState(true)}}>{todoTitle}</h3>
+            }
+
+            {
+                contentWritableState ?
+                <textarea className="content" onChange={handleContentChange} onBlur={()=>{setContentWritableState(false)}} value={todoContent} />
+                :
+                <p className="content" onDoubleClick={()=>{setContentWritableState(true)}}>{todoContent}</p>
+            }
+
+            {
+                pickUserState ?
+                <select defaultValue={todoUserId} onChange={handleUserChange} onBlur={() => {setPickUserState(false)}}>
+                    {usersStore.users.map(user => <option key={user.id} value={user.id}>{user.username}</option>)}
+                </select> :
+                <p className="username-paragraph" onDoubleClick={()=>{setPickUserState(true)}}>{todoUserId ? todoUsername : 'Choose'}</p>
+            }
                 <p>{props.todo?.status}</p>
                 <p>{props.todo?.creationTime}</p>
         </div>
