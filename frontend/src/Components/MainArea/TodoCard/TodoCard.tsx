@@ -2,7 +2,7 @@ import { SyntheticEvent, useEffect, useState } from "react";
 import TodoModel from "../../../Models/TodoModel";
 import "./TodoCard.css";
 import CloseIcon from '@mui/icons-material/Close';
-import SaveIcon from '@mui/icons-material/Save';
+import SaveIcon from '../../../Assets/Images/Icons/save.png';
 import { StatusEnum } from "../../../Models/StatusEnum";
 import usersStore from "../../../MOBX/UsersStore";
 import TodoCardLogic from "./TodoCardLogic";
@@ -22,6 +22,7 @@ const TodoCard = observer((props: TodoCardProps): JSX.Element => {
     const [todoTitle, setTodoTitle] = useState<string>(props.todo?.title);
     const [todoUserId, setTodoUserId] = useState<number>(props.todo?.userId);
     const [todoUsername, setTodoUsername] = useState<string>(props.todo?.username);
+    const [todoTime] = useState<string>(`${new Date(props.todo.creationTime).getDate() + 1}/${new Date(props.todo.creationTime).getMonth() + 1}/${new Date(props.todo.creationTime).getFullYear()}`)
 
     const [pickUserState, setPickUserState] = useState<boolean>(false);
     const [contentWritableState, setContentWritableState] = useState<boolean>(false);
@@ -29,20 +30,7 @@ const TodoCard = observer((props: TodoCardProps): JSX.Element => {
 
     // Set todo CSS class for coloring: 
     useEffect(()=>{ 
-        switch(props.todo?.status) {
-            case StatusEnum[1]:
-                handleTodoClass('pending');
-                break;
-            case StatusEnum[2]:
-                handleTodoClass('progress');
-                break;
-            case StatusEnum[3]:
-                handleTodoClass('waiting');
-                break;
-            case StatusEnum[4]:
-                handleTodoClass('completed');
-                break;
-        }
+        props.todo.color ? handleTodoClass(props.todo.color) : handleTodoClass("teal")
     }, [props.todo]);
 
     const handleDragStart = () => TodoCardLogic.handleDragStart(props);
@@ -55,7 +43,7 @@ const TodoCard = observer((props: TodoCardProps): JSX.Element => {
     const createTodo = () => TodoCardLogic.createTodo(todoContent, todoTitle, todoUserId, props);
     
     const createOrUpdate = () => {
-        if(props.todo.id === undefined) return createTodo();
+        if(props.todo.id === -1) return createTodo();
         updateTodo()
     }
 
@@ -66,7 +54,7 @@ const TodoCard = observer((props: TodoCardProps): JSX.Element => {
             className={`TodoCard ${todoClass}`}
         >
             <div className="control-btn">
-                <SaveIcon className="save-icon" onClick={createOrUpdate} />
+                <img src={SaveIcon} className="save-icon" onClick={createOrUpdate} />
                 <CloseIcon className="delete-icon" onClick={handleDeleteModal} />
             </div>
 
@@ -92,7 +80,7 @@ const TodoCard = observer((props: TodoCardProps): JSX.Element => {
                 <p className="username-paragraph" onDoubleClick={()=>{setPickUserState(true)}}>{todoUserId ? todoUsername : 'Choose'}</p>
             }
                 <p>{props.todo?.status}</p>
-                <p>{props.todo?.creationTime}</p>
+                <p>Created: {todoTime}</p>
         </div>
     );
 })

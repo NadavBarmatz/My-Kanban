@@ -1,3 +1,9 @@
 .RegularNavigator {
-	
+	height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.RegularNavigator > h2 {
+    padding-left: 2%;
 }

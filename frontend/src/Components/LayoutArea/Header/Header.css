@@ -1,12 +1,28 @@
 .Header {
 	height: 100%;
+    width: 60%;
+    padding: 2%;
     display: grid;
     align-content: center;
+    text-align: left;
     
 }
 
 .Header h1 {
-    font-size: max(8vw, 4em);
-    color: var(--Purple);
+    font-size: max(2.8vw, 1.7em);
+    color: var(--Black);
+    font-family: var(--font600);
     text-shadow: 5px 5px var(--Light);
+}
+
+.Header h1 > span {
+    font-family: var(--font600);
+    font-size: max(0.6vw, 0.6em);
+    font-weight: 100;
+}
+
+.Header .task-count {
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
 }

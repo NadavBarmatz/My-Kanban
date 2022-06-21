@@ -4,6 +4,7 @@ import TodoModel from "../Models/TodoModel";
 class TodoStore {
     public todoArr: TodoModel[] = [];
     public newTodoState: boolean = false;
+    public openColorPickerState: boolean = false;
 
     constructor() {
         makeAutoObservable(this)
@@ -14,6 +15,7 @@ class TodoStore {
     }
 
     public addTodo(todo: TodoModel): void {
+        console.log("From add Todo");
         this.todoArr.push(todo);
     }
 
@@ -35,11 +37,31 @@ class TodoStore {
     public changeNewTodoState(state: boolean): void {
         this.newTodoState = state;
     }
+
+    public changeOpenColorPickerState(state: boolean): void {
+        this.openColorPickerState = state;
+    }
+
+    public get pendingCount(): number {
+        return this.todoArr.filter(todo => todo.status === "Pending").length;
+    }
+
+    public get inProgressCount(): number {
+        return this.todoArr.filter(todo => todo.status === "In progress").length;
+    }
+
+    public get waitingCount(): number {
+        return this.todoArr.filter(todo => todo.status === "Waiting for review").length;
+    }
+
+    public get completedCount(): number {
+        return this.todoArr.filter(todo => todo.status === "Completed").length;
+    }
 }
 const todoStore = new TodoStore();
 
 export default todoStore;
 
 autorun(()=>{
-    console.log("[Autorun] ", todoStore.todos);
-})
+    console.log("[Autorun] ", todoStore.todos, "newTodoState", todoStore.newTodoState);
+});

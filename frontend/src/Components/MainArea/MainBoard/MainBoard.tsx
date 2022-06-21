@@ -10,13 +10,14 @@ import DeleteModal from "../Modals/DeleteModal/DeleteModal";
 import TodoCard from "../TodoCard/TodoCard";
 import AddIcon from '@mui/icons-material/Add';
 import "./MainBoard.css";
+import ColorPicker from "../ColorPicker/ColorPicker";
 
 const MainBoard = observer((): JSX.Element => {
 
     const [todos, handleTodos] = useState<TodoModel[]>();
     const [draggableId, handleDraggableId] = useState<number>();
     const [todoToUpdate, handleTodoToUpdate] = useState<TodoModel>();
-
+    
     useEffect(() => {
         try{
             handleTodos(todoStore.todos);
@@ -26,6 +27,7 @@ const MainBoard = observer((): JSX.Element => {
                     handleTodos(todosFromServer);
                 })();
             }
+
             if(usersStore.users.length === 0) {
                 (async() => {
                     await usersService.getUsers();
@@ -57,22 +59,15 @@ const MainBoard = observer((): JSX.Element => {
         }
     }
 
-    const addNewCard = () => {
-        if(todoStore.newTodoState === true) todoStore.deleteTodo(undefined);
-        todoStore.changeNewTodoState(true);
-        const newTodo = new TodoModel();
-        newTodo.statusId = 1;
-        newTodo.status = "Pending";
-        newTodo.title = "Title";
-        newTodo.content = "Content";
-        todoStore.addTodo(newTodo)
-        
+    const openColorPicker = () => {
+        todoStore.changeOpenColorPickerState(!todoStore.openColorPickerState);
     }
 
     return (
         <div className="MainBoard">
             <div className="new-todo">
-                <AddIcon className="add-btn" onClick={addNewCard} />
+                <AddIcon className="add-btn" onClick={openColorPicker} />
+                <ColorPicker />
             </div>
             <div className="board">
                 <div className="box pending" onDragOver={(e) => { updateTodoStatus(1, e) }} onDragEnd={updateTodo}>

@@ -1,30 +1,34 @@
 .TodoCard {
-    width: 50%;
+    width: 70%;
     margin: 15px auto;
     padding: 10px;
     border-radius: 15px;
     cursor: grab;
-}
-
-.TodoCard > .title,
-.TodoCard > .content {
     text-align: left;
 }
 
-.TodoCard.pending {
-    background-image: linear-gradient(135deg, var(--Purple), var(--GradPurple));
-}
-
-.TodoCard.progress {
+.TodoCard.orange {
     background-image: linear-gradient(135deg, var(--Orange), var(--GradOrange));
 }
 
-.TodoCard.waiting {
+.TodoCard.green {
+    background-image: linear-gradient(135deg, var(--Green), var(--GradGreen));
+}
+
+.TodoCard.pink {
+    background-image: linear-gradient(135deg, var(--Pink), var(--GradPink));
+}
+
+.TodoCard.purple {
+    background-image: linear-gradient(135deg, var(--Purple), var(--GradPurple));
+}
+
+.TodoCard.teal {
     background-image: linear-gradient(135deg, var(--Teal), var(--GradTeal));
 }
 
-.TodoCard.completed {
-    background-image: linear-gradient(135deg, var(--Green), var(--GradGreen));
+.TodoCard.red {
+    background-image: linear-gradient(135deg, var(--Red), var(--GradRed));
 }
 
 .control-btn {
@@ -32,6 +36,11 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
+}
+
+.control-btn > img {
+    width: 20px;
+    height: 20px;
 }
 
 .save-icon,
@@ -48,7 +57,7 @@
 }
 
 .TodoCard .content {
-    padding: 2%;
+    padding: 2% 0;
 }
 
 .TodoCard .title {

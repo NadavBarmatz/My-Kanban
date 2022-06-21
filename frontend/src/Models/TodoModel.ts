@@ -7,6 +7,7 @@ class TodoModel {
     public username: string;
     public status: string;
     public creationTime: string;
+    public color: string;
 }
 
 export default TodoModel;

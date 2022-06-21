@@ -1,9 +1,13 @@
 .Layout {
 	height: fit-content;
     display: grid;
-    grid-template-rows: 20vh 5vh auto 5vh;
+    grid-template-rows: 5vh 20vh auto 5vh;
 }
 
 main {
     min-height: 70vh;
+}
+
+nav {
+    background-color: var(--Orange);
 }

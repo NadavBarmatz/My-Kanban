@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import AuthMenu from "../../../AuthArea/AuthMenu/AuthMenu";
 import "./Navigator.css";
 
 function Navigator(): JSX.Element {
@@ -9,8 +8,6 @@ function Navigator(): JSX.Element {
 			<Link to="#">LINK 2</Link>
 			<Link to="#">LINK 3</Link>
 			<Link to="#">LINK 4</Link>
-
-            <AuthMenu />
         </div>
     );
 }

@@ -35,9 +35,7 @@ const handleTitleChange = (e: SyntheticEvent, setTodoTitle: Function) => {
 const handleUserChange = (e: SyntheticEvent, setTodoUserId: Function, setTodoUsername: Function) => {
     const userId = +(e.target as HTMLSelectElement).value;
     if(userId === undefined) return;
-    console.log("userId", userId);
     const username = usersStore.users.find(user => user.id === userId)?.username
-    console.log("username", username);
     setTodoUserId(userId);
     setTodoUsername(username);
 }
@@ -53,6 +51,8 @@ const updateTodo = async (todoContent: string, todoTitle: string, todoUserId: nu
             props?.todo.content === undefined || 
             props?.todo.userId === undefined || 
             props?.todo.statusId === undefined) return;
+
+            props.todo.id = undefined;
             
             todosService.editTodo(props.todo);
         }
@@ -65,9 +65,8 @@ const updateTodo = async (todoContent: string, todoTitle: string, todoUserId: nu
         try {
             if(todoContent !== props?.todo.content) props.todo.content = todoContent;
             if(todoTitle !== props?.todo.title) props.todo.title = todoTitle;
-            if(todoUserId !== props?.todo.userId) props.todo.userId = todoUserId;
-            
-            props.todo.id = undefined;
+            if(todoUserId !== props?.todo.userId) props.todo.userId = todoUserId;            
+            todoStore.changeNewTodoState(false);
             const newTodo = await todosService.createTodo(props.todo);
             todoStore.editTodo(newTodo);
     }

@@ -20,6 +20,7 @@
   --GradRed: hsl(359,64%,90%);
   
   --font200: 'Poppins', sans-serif;
+  --font600: 'Poppins', sans-serif;
 }
 
 html, body, * {
@@ -28,7 +29,7 @@ html, body, * {
 }
 
 body {
-  background-color: var();
+  background-color: var(--Light);
   text-align: center;
 }
 
@@ -40,11 +41,7 @@ p, h1, h2, h3, h4, h5, h6, ul, ol, li, button, input, textarea, label, span {
 a {
   font-family: var(--font200);
   text-decoration: none;
-  color: var(--Link);
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font200);
+  color: var(--Black);
 }
 
 .btn-success {
@@ -60,16 +57,15 @@ button {
   border: none;
   border-radius: 10px;
   padding: 5px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.75);
 }
 
 button:hover {
   cursor: pointer;
-  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.75);
+  box-shadow: 0 0 0 2px var(--Black);
 }
 
 button:active {
-  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.75);
+  box-shadow: 0 0 2px 0 var(--Black);
   transform: translate(2px, 2px);
 }
 

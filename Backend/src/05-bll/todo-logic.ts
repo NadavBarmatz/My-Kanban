@@ -4,7 +4,7 @@ import TodoModel from "../03-models/todo-model";
 import dal from "../04-dal/dal";
 
 async function getAllTodos(): Promise<TodoModel> {
-    const sql = `SELECT todos.id, todos.title, todos.content, todos.userId, todos.statusId, users.username,
+    const sql = `SELECT todos.id, todos.color, todos.title, todos.content, todos.userId, todos.statusId, users.username,
         todo_status.status, todos.creationTime 
         FROM todos 
         JOIN users ON users.id = todos.userId
@@ -14,7 +14,7 @@ async function getAllTodos(): Promise<TodoModel> {
 }
 
 async function getTodoById(id: number): Promise<TodoModel> {
-    const sql = `SELECT todos.id, todos.title, todos.content, todos.userId, todos.statusId, users.username, 
+    const sql = `SELECT todos.id, todos.color, todos.title, todos.content, todos.userId, todos.statusId, users.username, 
         todo_status.status, todos.creationTime 
         FROM todos 
         JOIN users ON users.id = todos.userId
@@ -33,8 +33,8 @@ async function addTodo(todo: TodoModel): Promise<TodoModel> {
     // validate:
     const errors = todo.validatePost();
     if(errors) throw new ClientError(400, errors);
-    const sql = `INSERT INTO todos (title, content, userId, statusId, creationTime) VALUES (?, ?, ?, ?, ?)`;
-    const result: OkPacket = await dal.execute(sql, [todo.title, todo.content, todo.userId, todo.statusId, todo.creationTime]);
+    const sql = `INSERT INTO todos (title, content, userId, statusId, creationTime, color) VALUES (?, ?, ?, ?, ?, ?)`;
+    const result: OkPacket = await dal.execute(sql, [todo.title, todo.content, todo.userId, todo.statusId, todo.creationTime, todo.color]);
     todo.id = result.insertId;
     return todo;
 }
@@ -54,8 +54,8 @@ async function updateTodo(todo: TodoModel): Promise<TodoModel> {
             oldTodo[prop] = todo[prop];
         }
     }
-    const sql = `UPDATE todos SET title = ?, content = ?, userId = ?, statusId = ? WHERE id = ?`;
-    await dal.execute(sql, [oldTodo.title, oldTodo.content, oldTodo.userId, oldTodo.statusId, oldTodo.id]);
+    const sql = `UPDATE todos SET title = ?, content = ?, userId = ?, statusId = ?, color=? WHERE id = ?`;
+    await dal.execute(sql, [oldTodo.title, oldTodo.content, oldTodo.userId, oldTodo.statusId, oldTodo.color, oldTodo.id]);
     const updatedTodo = await getTodoById(oldTodo.id);
     return updatedTodo;
 }

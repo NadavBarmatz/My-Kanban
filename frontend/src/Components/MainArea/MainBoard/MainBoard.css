@@ -4,11 +4,16 @@
 }
 
 .MainBoard > .new-todo {
-    text-align: left;
+    display: flex;
+    align-items: center;
 }
 
 .MainBoard > .new-todo > .add-btn {
+    border: 3px solid var(--Teal);
+    background-color: var(--Teal);
+    border-radius: 25vh;
     cursor: pointer;
+    font-size: 2em;
 }
 
 .board {
@@ -19,12 +24,13 @@
 }
 
 .box {
-    border: 1px solid var(--Black);
+    border: 5px solid var(--Light);
+    background-color: var(--White);
     overflow: hidden;
+    border-radius: 25px;
 }
 
 .todos {
     overflow-y: auto;
     height: calc(100% - 28pt);
-    cursor: cell;
 }

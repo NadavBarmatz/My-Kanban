@@ -8,6 +8,7 @@ class TodoModel {
     public userId: number;
     public statusId: number;
     public creationTime: string;
+    public color: string;
 
     constructor(todo: TodoModel) {
         this.id = todo.id;
@@ -16,6 +17,7 @@ class TodoModel {
         this.userId = todo.userId;
         this.statusId = todo.statusId;
         this.creationTime = todo.creationTime;
+        this.color = todo.color;
     };
 
     static postValidationSchema = Joi.object({
@@ -24,7 +26,8 @@ class TodoModel {
         content: Joi.string().optional().max(150),
         userId: Joi.number().optional(),
         statusId: Joi.number().required(),
-        creationTime: Joi.date().required().min(new Date().toDateString())
+        creationTime: Joi.date().required().min(new Date().toDateString()),
+        color: Joi.string().optional()
     });
 
     static putValidationSchema = Joi.object({
@@ -33,7 +36,8 @@ class TodoModel {
         content: Joi.string().optional().max(150),
         userId: Joi.number().optional(),
         statusId: Joi.number().optional(),
-        creationTime: Joi.date().optional()
+        creationTime: Joi.date().optional(),
+        color: Joi.string().optional()
     });
 
     public validatePost() {

@@ -1,0 +1,43 @@
+.ColorPicker {
+    display: flex;
+    position: relative;
+    width: 0%;
+}
+
+.ColorPicker.open {
+    width: 100%;
+    left: 0%;
+    transition: 500ms ease-in;
+}
+
+.ColorPicker > div {
+	width: 20px;
+    aspect-ratio: 1;
+    border-radius: 25%;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.ColorPicker .orange {
+    background-color: var(--Orange);
+}
+
+.ColorPicker .green {
+    background-color: var(--Green);
+}
+
+.ColorPicker .pink {
+    background-color: var(--Pink);
+}
+
+.ColorPicker .purple {
+    background-color: var(--Purple);
+}
+
+.ColorPicker .teal {
+    background-color: var(--Teal);
+}
+
+.ColorPicker .red {
+    background-color: var(--Red);
+}
