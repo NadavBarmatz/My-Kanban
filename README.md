@@ -2,8 +2,14 @@
 
 This project is my implementation of a drag and drop Kanban board.
 
-This project is in process, Still have a lot of issues to handle.
+This project is in process.
 
+## Current functionality:
+* login / register
+* Create new note
+* Pick note color
+* Edit notes
+* Change note status
 
 ## Written in: 
 React TypeScript, MobX and Axios in Frontend.
