@@ -36,13 +36,13 @@ const MainBoard = observer((): JSX.Element => {
         }
         }
         catch(err: any) {
-            console.error(err.message)    
+            notifyService.error(err); 
         }
     }, [todoStore.todos]);
 
     const updateTodoStatus = (newStatus: number, e: React.DragEvent) => {
         e.preventDefault();
-        if (draggableId) {
+        if (draggableId && draggableId !== -1) {
             const todo = todos.find(t => t.id === draggableId);
             todo.statusId = newStatus;
             todo.status = StatusEnum[newStatus];
@@ -52,6 +52,7 @@ const MainBoard = observer((): JSX.Element => {
 
     const updateTodo = async () => {
         try {
+            if(draggableId === -1) throw new Error("Task must be saved before changing status");
             await todosService.editTodo(todoToUpdate);
         }
         catch (err: any) {

@@ -30,6 +30,7 @@ class TodosService {
 
     public async editTodo(todo: TodoModel): Promise<TodoModel> {
         const res = await axios.put<TodoModel>(config.urls.todos + todo.id, todo);
+        console.log("ok")
         const todoEdited = res.data;
         todoStore.editTodo(todoEdited);
         return todoEdited;
