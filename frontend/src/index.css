@@ -83,7 +83,19 @@ button:disabled:hover {
 button:disabled:active {
   box-shadow: none;
   transform: translate(0px, 0px);
+}
 
+form {
+  background-color: var(--White);
+  text-align: left;
+  width: 40%;
+  margin: 0 auto;
+  padding: 1% 2%;
+}
+
+form > input {
+  background-color: var(--Light);
+  border: 1px solid var(--Grey);
 }
 
 form span {

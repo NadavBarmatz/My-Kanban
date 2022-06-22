@@ -2,14 +2,6 @@
     padding: 5%;
 }
 
-.Register > form {
-    border: 1px solid var(--Black);
-    width: 40%;
-    margin: 0 auto;
-    text-align: left;
-    padding: 1% 2%;
-}
-
 .Register > form > label,
 .Register > form > input {
     width: 100%;
