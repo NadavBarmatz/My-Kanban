@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form"
 import CredentialsModel from "../../../Models/CredentialsModel";
 import authService from "../../../Services/AuthService";
 import { Link, useNavigate } from "react-router-dom";
+import notifyService from "../../../Services/NotifyService";
 
 function Login(): JSX.Element {
 
@@ -13,10 +14,11 @@ function Login(): JSX.Element {
     const submit = async (credentials: CredentialsModel) => {
         try {
             await authService.login(credentials);
+            notifyService.success("You are now logged in");
             redirect("/board");
         }
         catch(err: any) {
-            console.error(err.message);
+            notifyService.error(err);
         }
     }
 

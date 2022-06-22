@@ -1,7 +1,6 @@
 import { observer } from "mobx-react";
 import { Link } from "react-router-dom";
 import authStore from "../../../MOBX/AuthStore";
-import Logout from "../Logout/Logout";
 import "./AuthMenu.css";
 
 const AuthMenu = observer((): JSX.Element => {

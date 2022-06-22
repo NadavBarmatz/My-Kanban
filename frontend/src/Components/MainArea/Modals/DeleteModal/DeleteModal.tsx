@@ -5,6 +5,7 @@ import { ModalStore } from "../../../../MOBX/ModalStore";
 import "./DeleteModal.css";
 import todosService from "../../../../Services/TodosService";
 import Style from "../modalStyle";
+import notifyService from "../../../../Services/NotifyService";
 
 const DeleteModal = observer((): JSX.Element => {
     // Required by modal material documentation:
@@ -24,10 +25,11 @@ const DeleteModal = observer((): JSX.Element => {
     const handleDeleteTodo = async() => {
         try{
             await todosService.deleteTodo(ModalStore.idToDelete);
+            notifyService.success("Task has been deleted");
             closeModal();
         }
         catch(err: any) {
-            alert(err.message)
+            notifyService.error(err);
         }
     }
 

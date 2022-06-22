@@ -11,6 +11,7 @@ import TodoCard from "../TodoCard/TodoCard";
 import AddIcon from '@mui/icons-material/Add';
 import "./MainBoard.css";
 import ColorPicker from "../ColorPicker/ColorPicker";
+import notifyService from "../../../Services/NotifyService";
 
 const MainBoard = observer((): JSX.Element => {
 
@@ -54,7 +55,7 @@ const MainBoard = observer((): JSX.Element => {
             await todosService.editTodo(todoToUpdate);
         }
         catch (err: any) {
-            console.error(err.message);
+            notifyService.error(err)
         }
     }
 

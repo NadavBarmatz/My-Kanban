@@ -3,15 +3,22 @@ import { useForm } from "react-hook-form";
 import UserModel from "../../../Models/UserModel";
 import authService from "../../../Services/AuthService";
 import { useNavigate } from "react-router-dom";
+import notifyService from "../../../Services/NotifyService";
 
 function Register(): JSX.Element {
 
     const {register, handleSubmit, reset, formState} = useForm<UserModel>();
     const redirect = useNavigate();
 
-    const submit = (user: UserModel) => {
-        authService.register(user);
-        redirect("/board")
+    const submit = async (user: UserModel) => {
+        try {
+            await authService.register(user);
+            notifyService.success("You are now logged in");
+            redirect("/board");
+        }
+        catch(err: any) {
+            notifyService.error(err);
+        }
         
     }
 

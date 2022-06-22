@@ -1,8 +1,6 @@
 import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
 import RegularNavigator from "../Navbar/RegularNavigator/RegularNavigator";
 import Routing from "../Routing/Routing";
-import TaskCount from "../Header/TaskCount/TaskCount";
 import "./Layout.css";
 import HeaderRouting from "../Header/HeaderRouting/HeaderRouting";
 

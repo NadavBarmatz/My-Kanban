@@ -5,6 +5,7 @@ import { SyntheticEvent } from 'react';
 import todosService from '../../../Services/TodosService';
 import TodoModel from '../../../Models/TodoModel';
 import usersStore from '../../../MOBX/UsersStore';
+import notifyService from '../../../Services/NotifyService';
 
 const handleDragStart = (props: TodoCardProps) => {
     props.passToParent(props.todo.id);
@@ -54,10 +55,10 @@ const updateTodo = async (todoContent: string, todoTitle: string, todoUserId: nu
 
             props.todo.id = undefined;
             
-            todosService.editTodo(props.todo);
+            await todosService.editTodo(props.todo);
         }
         catch(err: any) {
-            console.error(err);
+            notifyService.error(err);
         }
     }
     
@@ -71,7 +72,8 @@ const updateTodo = async (todoContent: string, todoTitle: string, todoUserId: nu
             todoStore.editTodo(newTodo);
     }
     catch(err: any) {
-        console.error(err);
+        notifyService.error(err);
+
     }
 }
 
