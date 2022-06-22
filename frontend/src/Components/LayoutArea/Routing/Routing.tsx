@@ -1,4 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import AboutUs from "../../AboutArea/AboutUs/AboutUs";
 import Login from "../../AuthArea/Login/Login";
 import Logout from "../../AuthArea/Logout/Logout";
 import Register from "../../AuthArea/Register/Register";
@@ -10,6 +11,7 @@ function Routing(): JSX.Element {
         <>
 			<Routes>
                 <Route path="/board" element={<MainBoard />} />
+                <Route path="/about" element={<AboutUs />} />
                 {/* Auth routes */}
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />

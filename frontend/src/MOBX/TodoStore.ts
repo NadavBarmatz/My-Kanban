@@ -3,6 +3,7 @@ import TodoModel from "../Models/TodoModel";
 
 class TodoStore {
     public todoArr: TodoModel[] = [];
+    public temporaryTodo: TodoModel;
     public newTodoState: boolean = false;
     public openColorPickerState: boolean = false;
 
@@ -15,13 +16,11 @@ class TodoStore {
     }
 
     public addTodo(todo: TodoModel): void {
-        console.log("From add Todo");
         this.todoArr.push(todo);
     }
 
     public editTodo(todo: TodoModel): void {
         const index = this.todoArr.findIndex(t => t.id === todo.id);
-        console.log("From Store: ", this.todoArr[index]);
         this.todoArr[index] = todo;
     }
 
@@ -63,5 +62,5 @@ const todoStore = new TodoStore();
 export default todoStore;
 
 autorun(()=>{
-    console.log("[Autorun] ", todoStore.todos, "newTodoState", todoStore.newTodoState);
+    console.log("[Autorun] ", todoStore.todos);
 });

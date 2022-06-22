@@ -1,0 +1,33 @@
+.AboutUs {
+    padding: 2%;
+	text-align: left;
+    display: flex;
+}
+
+.AboutUs article,
+.AboutUs .picture {
+    width: 50%;
+}
+
+.AboutUs .picture {
+    display: flex;
+    place-content: center;
+}
+
+.AboutUs .picture img {
+    width: 50%;
+}
+
+
+
+.AboutUs a {
+    color: var(--Teal);
+}
+
+.AboutUs section:not(:first-child) {
+    padding: 1% 0;
+}
+
+.AboutUs ul {
+    padding: 0 2%;
+}

@@ -7,7 +7,7 @@ function Navigator(): JSX.Element {
 			<Link to="/board">Todo Board</Link>
 			<Link to="#">LINK 2</Link>
 			<Link to="#">LINK 3</Link>
-			<Link to="#">LINK 4</Link>
+			<Link to="about">About Us</Link>
         </div>
     );
 }

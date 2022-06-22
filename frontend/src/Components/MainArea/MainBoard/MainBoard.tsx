@@ -52,7 +52,6 @@ const MainBoard = observer((): JSX.Element => {
     const updateTodo = async () => {
         try {
             await todosService.editTodo(todoToUpdate);
-            handleTodos(todoStore.todos)
         }
         catch (err: any) {
             console.error(err.message);
