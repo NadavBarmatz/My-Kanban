@@ -1,10 +1,13 @@
 import { observer } from "mobx-react";
-import { SyntheticEvent } from "react";
+import { SyntheticEvent, useState } from "react";
 import todoStore from "../../../MOBX/TodoStore";
 import TodoModel from "../../../Models/TodoModel";
+import AddIcon from '@mui/icons-material/Add';
 import "./ColorPicker.css";
 
-const ColorPicker = observer((): JSX.Element => {
+const ColorPicker = (): JSX.Element => {
+
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const addNewCard = (e: SyntheticEvent) => {
         if(todoStore.newTodoState === true) todoStore.deleteTodo(undefined);
@@ -21,15 +24,18 @@ const ColorPicker = observer((): JSX.Element => {
     }
 
     return (
-        <div className={`ColorPicker${todoStore.openColorPickerState ? " open" : ""}`} >
-            <div className="orange" onClick={(e)=>{addNewCard(e)}}></div>
-            <div className="green" onClick={(e)=>{addNewCard(e)}}></div>
-            <div className="pink" onClick={(e)=>{addNewCard(e)}}></div>
-            <div className="purple" onClick={(e)=>{addNewCard(e)}}></div>
-            <div className="teal" onClick={(e)=>{addNewCard(e)}}></div>
-            <div className="red" onClick={(e)=>{addNewCard(e)}}></div>
+        <div className="new-todo">
+        <AddIcon className="add-btn" onClick={()=>setIsOpen(!isOpen)} />
+            <div className={`ColorPicker${isOpen ? " open" : ""}`} >
+                <div className="orange" onClick={(e)=>{addNewCard(e)}}></div>
+                <div className="green" onClick={(e)=>{addNewCard(e)}}></div>
+                <div className="pink" onClick={(e)=>{addNewCard(e)}}></div>
+                <div className="purple" onClick={(e)=>{addNewCard(e)}}></div>
+                <div className="teal" onClick={(e)=>{addNewCard(e)}}></div>
+                <div className="red" onClick={(e)=>{addNewCard(e)}}></div>
+            </div>
         </div>
     );
-})
+}
 
 export default ColorPicker;

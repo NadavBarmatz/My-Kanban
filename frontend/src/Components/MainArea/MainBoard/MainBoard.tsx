@@ -8,14 +8,15 @@ import todosService from "../../../Services/TodosService";
 import usersService from "../../../Services/UsersService";
 import DeleteModal from "../Modals/DeleteModal/DeleteModal";
 import TodoCard from "../TodoCard/TodoCard";
-import AddIcon from '@mui/icons-material/Add';
 import "./MainBoard.css";
 import ColorPicker from "../ColorPicker/ColorPicker";
 import notifyService from "../../../Services/NotifyService";
+import todoTagsStore from "../../../MOBX/TodoTagsStore";
+import todoTagsService from "../../../Services/TodoTagsService";
 
 const MainBoard = observer((): JSX.Element => {
 
-    const [todos, handleTodos] = useState<TodoModel[]>();
+    const [todos, handleTodos] = useState<TodoModel[]>(todoStore.todos);
     const [draggableId, handleDraggableId] = useState<number>();
     const [todoToUpdate, handleTodoToUpdate] = useState<TodoModel>();
     const [renderOnce, setRenderOnce] = useState<boolean>(true);
@@ -31,6 +32,9 @@ const MainBoard = observer((): JSX.Element => {
                     if (todoStore.todos.length === 0) {
                         const todosFromServer = await todosService.getAllTodos();
                         handleTodos(todosFromServer);
+                    }
+                    if (todoTagsStore.todoTags.length === 0) {
+                        await todoTagsService.getAllTodosTags();
                     }
                     if(usersStore.users.length === 0) {
                         await usersService.getUsers();
@@ -64,16 +68,9 @@ const MainBoard = observer((): JSX.Element => {
         }
     }
 
-    const openColorPicker = () => {
-        todoStore.changeOpenColorPickerState(!todoStore.openColorPickerState);
-    }
-
     return (
         <div className="MainBoard">
-            <div className="new-todo">
-                <AddIcon className="add-btn" onClick={openColorPicker} />
-                <ColorPicker />
-            </div>
+           <ColorPicker />
             <div className="board">
                 <div className="box pending" onDragOver={(e) => { updateTodoStatus(1, e) }} onDragEnd={updateTodo}>
                     <h2>Pending</h2>

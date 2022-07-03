@@ -5,7 +5,6 @@ class TodoStore {
     public todoArr: TodoModel[] = [];
     public temporaryTodo: TodoModel;
     public newTodoState: boolean = false;
-    public openColorPickerState: boolean = false;
 
     constructor() {
         makeAutoObservable(this)
@@ -39,10 +38,6 @@ class TodoStore {
 
     public changeNewTodoState(state: boolean): void {
         this.newTodoState = state;
-    }
-
-    public changeOpenColorPickerState(state: boolean): void {
-        this.openColorPickerState = state;
     }
 
     public get pendingCount(): number {

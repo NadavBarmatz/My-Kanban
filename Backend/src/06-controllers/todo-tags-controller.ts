@@ -4,10 +4,10 @@ import logic from "../05-bll/todo-tags-logic";
 
 const router = express.Router();
 
-router.get("/:todoId", async(req: Request, res: Response, next: NextFunction) => {
+router.get("/", async(req: Request, res: Response, next: NextFunction) => {
     try{
         const todoId = +req.params.todoId;
-        const todoTags = await logic.getAllTodoTags(todoId);
+        const todoTags = await logic.getAllTodoTags();
         res.json(todoTags);
     }
     catch(err: any) {

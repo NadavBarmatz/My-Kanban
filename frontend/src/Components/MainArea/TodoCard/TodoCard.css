@@ -68,3 +68,10 @@
 .TodoCard .username-paragraph:hover {
     cursor: pointer;
 }
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}

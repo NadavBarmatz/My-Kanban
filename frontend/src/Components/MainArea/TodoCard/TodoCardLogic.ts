@@ -3,7 +3,6 @@ import todoStore from "../../../MOBX/TodoStore";
 import { ModalStore } from '../../../MOBX/ModalStore';
 import { SyntheticEvent } from 'react';
 import todosService from '../../../Services/TodosService';
-import TodoModel from '../../../Models/TodoModel';
 import usersStore from '../../../MOBX/UsersStore';
 import notifyService from '../../../Services/NotifyService';
 

@@ -8,6 +8,9 @@ import usersStore from "../../../MOBX/UsersStore";
 import TodoCardLogic from "./TodoCardLogic";
 import todoStore from "../../../MOBX/TodoStore";
 import { observer } from "mobx-react";
+import TodoTagModel from "../../../Models/TodoTagModel";
+import todoTagsStore from "../../../MOBX/TodoTagsStore";
+import TodoTag from "../TodoTag/TodoTag";
 
 
 export interface TodoCardProps {
@@ -23,6 +26,8 @@ const TodoCard = observer((props: TodoCardProps): JSX.Element => {
     const [todoUserId, setTodoUserId] = useState<number>(props.todo?.userId);
     const [todoUsername, setTodoUsername] = useState<string>(props.todo?.username);
     const [todoTime] = useState<string>(`${new Date(props.todo.creationTime).getDate() + 1}/${new Date(props.todo.creationTime).getMonth() + 1}/${new Date(props.todo.creationTime).getFullYear()}`)
+    
+    const [tags, setTags] = useState<TodoTagModel[]>([]);
 
     const [pickUserState, setPickUserState] = useState<boolean>(false);
     const [contentWritableState, setContentWritableState] = useState<boolean>(false);
@@ -30,7 +35,11 @@ const TodoCard = observer((props: TodoCardProps): JSX.Element => {
 
     // Set todo CSS class for coloring: 
     useEffect(()=>{ 
-        props.todo.color ? handleTodoClass(props.todo.color) : handleTodoClass("teal")
+        props.todo.color ? handleTodoClass(props.todo.color) : handleTodoClass("teal");
+        if ( tags.length === 0 ) {
+            let currentTodoTags = todoTagsStore.getTodoTags.filter(todoTag => todoTag.todoId === props.todo.id);
+            setTags(currentTodoTags);
+        }
     }, [props.todo]);
 
     const handleDragStart = () => TodoCardLogic.handleDragStart(props);
@@ -81,6 +90,14 @@ const TodoCard = observer((props: TodoCardProps): JSX.Element => {
             }
                 <p>{props.todo?.status}</p>
                 <p>Created: {todoTime}</p>
+                {
+                    tags?.length !== 0 ?
+                    <div className="tags">
+                        {tags.map((t, index) => <TodoTag key={index} tagName={t.name} />)}
+                    </div>
+                    :
+                    null
+                }
         </div>
     );
 })

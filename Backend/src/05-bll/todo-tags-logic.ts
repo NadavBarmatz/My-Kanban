@@ -9,9 +9,9 @@ async function getAllTodosVsTags(): Promise<TodoTagModel[]> {
     return todosVsTags;
 }
 
-async function getAllTodoTags(todoId: number): Promise<TodoTagModel[]>{
-    const sql = "SELECT tagsvstodo.todoId, tags.name FROM tagsvstodo JOIN tags ON tagsvstodo.tagId = tags.id WHERE todoId = ?;"
-    const todoTags = await dal.execute(sql, [todoId]);
+async function getAllTodoTags(): Promise<TodoTagModel[]>{
+    const sql = "SELECT tagsvstodo.todoId, tags.name FROM tagsvstodo JOIN tags ON tagsvstodo.tagId = tags.id"
+    const todoTags = await dal.execute(sql);
     return todoTags;
 }
 

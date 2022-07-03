@@ -1,0 +1,7 @@
+.TodoTag {
+	background-image: linear-gradient(20deg, var(--Grey), var(--White));
+    font-size: 0.85rem;
+    padding: 3px;
+    border-radius: 0.5rem;
+    margin-right: 5px;
+}
