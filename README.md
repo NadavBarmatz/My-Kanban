@@ -5,6 +5,7 @@ This project is my implementation of a drag and drop Kanban board.
 This project is in process.
 
 ❗ Currently there is only one board for demonstration.
+
 ❗ Future plans are to make unique board per company.
 
 ## Current functionality:
