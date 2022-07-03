@@ -29,6 +29,10 @@ class TodoStore {
         this.todoArr.splice(index, 1);
     }
 
+    public clearAllTodos(): void {
+        this.todoArr = [];
+    }
+
     public get todos(): TodoModel[] {
         return toJS(this.todoArr);
     }
@@ -61,6 +65,5 @@ const todoStore = new TodoStore();
 
 export default todoStore;
 
-autorun(()=>{
-    console.log("[Autorun] ", todoStore.todos);
-});
+autorun(() => {console.log(todoStore.todos)})
+

@@ -16,6 +16,7 @@ function getNewToken(user: UserModel): string {
 // Check if there is a valid token:
 function verifyToken(request: Request): Promise<boolean> {
     return new Promise((resolve, reject) => {
+        
         try{
             // Check if there is the correct header:
             if(!request.headers.authorization) {

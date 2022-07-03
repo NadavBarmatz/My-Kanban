@@ -25,17 +25,19 @@ class AuthStore {
     }
     
     public logout() {
-        this.token = null;
-        this.user = null;
+        this.token = undefined;
+        this.user = undefined;
         localStorage.removeItem("token");
     }
 
     public get getUser() {
         return toJS(this.user);
     }
+
+    public get isLoggedIn(): boolean {
+        return this.token !== undefined;
+    }
 }
 
 const authStore = new AuthStore();
 export default authStore;
-
-autorun(() => console.log("user", authStore.getUser))

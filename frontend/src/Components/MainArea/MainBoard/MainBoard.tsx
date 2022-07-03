@@ -18,27 +18,31 @@ const MainBoard = observer((): JSX.Element => {
     const [todos, handleTodos] = useState<TodoModel[]>();
     const [draggableId, handleDraggableId] = useState<number>();
     const [todoToUpdate, handleTodoToUpdate] = useState<TodoModel>();
+    const [renderOnce, setRenderOnce] = useState<boolean>(true);
     
     useEffect(() => {
-        try{
-            handleTodos(todoStore.todos);
-            if (!todos) {
-                (async () => {
-                    const todosFromServer = await todosService.getAllTodos();
-                    handleTodos(todosFromServer);
-                })();
-            }
-
-            if(usersStore.users.length === 0) {
-                (async() => {
-                    await usersService.getUsers();
-                })();
+        if(!renderOnce){
+            setRenderOnce(true);
+            (async() => {
+                try{
+                    if(todoStore.todos.length !== 0) {
+                        handleTodos(todoStore.todos);
+                    }
+                    if (todoStore.todos.length === 0) {
+                        const todosFromServer = await todosService.getAllTodos();
+                        handleTodos(todosFromServer);
+                    }
+                    if(usersStore.users.length === 0) {
+                        await usersService.getUsers();
+                    }
+                }            
+                catch(err: any) {
+                    notifyService.error(err); 
+                }
+            })();
         }
-        }
-        catch(err: any) {
-            notifyService.error(err); 
-        }
-    }, [todoStore.todos]);
+        setRenderOnce(false);
+    });
 
     const updateTodoStatus = (newStatus: number, e: React.DragEvent) => {
         e.preventDefault();

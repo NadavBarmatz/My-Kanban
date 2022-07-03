@@ -1,10 +1,11 @@
 import express, { NextFunction, Request, Response } from "express";
+import verifyToken from "../02-middleware/verify-token";
 import TodoModel from "../03-models/todo-model";
 import logic from "../05-bll/todo-logic";
 
 const router = express.Router();
 
-router.get("/", async(req: Request, res: Response, next: NextFunction) => {
+router.get("/", verifyToken, async(req: Request, res: Response, next: NextFunction) => {
     try{
         const todos = await logic.getAllTodos();
         res.json(todos);
@@ -14,7 +15,7 @@ router.get("/", async(req: Request, res: Response, next: NextFunction) => {
     }
 });
 
-router.get("/:todoId", async(req: Request, res: Response, next: NextFunction) => {
+router.get("/:todoId", verifyToken, async(req: Request, res: Response, next: NextFunction) => {
     try{
         const todoId = +req.params.todoId;
         const todo = await logic.getTodoById(todoId);
@@ -25,7 +26,7 @@ router.get("/:todoId", async(req: Request, res: Response, next: NextFunction) =>
     }
 });
 
-router.post("/", async(req: Request, res: Response, next: NextFunction) => {
+router.post("/", verifyToken, async(req: Request, res: Response, next: NextFunction) => {
     try{
         const todo = new TodoModel(req.body);
         const newTodo = await logic.addTodo(todo);
@@ -36,7 +37,7 @@ router.post("/", async(req: Request, res: Response, next: NextFunction) => {
     }
 });
 
-router.put("/:todoId", async(req: Request, res: Response, next: NextFunction) => {
+router.put("/:todoId", verifyToken, async(req: Request, res: Response, next: NextFunction) => {
     try{
         req.body.id = +req.params.todoId;
         const todo = new TodoModel(req.body);
@@ -48,7 +49,7 @@ router.put("/:todoId", async(req: Request, res: Response, next: NextFunction) =>
     }
 });
 
-router.delete("/:todoId", async(req: Request, res: Response, next: NextFunction) => {
+router.delete("/:todoId", verifyToken, async(req: Request, res: Response, next: NextFunction) => {
     try{
         const todoId = +req.params.todoId;
         await logic.deleteTodo(todoId);
