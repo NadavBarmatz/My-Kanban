@@ -21,8 +21,8 @@ async function register(user: UserModel): Promise<string> {
         if( u.email === user.email || u.username === user.username) throw new ClientError(400, "Username or Email is already taken")
     });
 
-    const sql = 'INSERT INTO users (firstName, lastName, username, email, title, role, password) VALUES (?,?,?,?,?,?,?)';
-    const values = [user.firstName, user.lastName, user.username, user.email, user.title, user.role, user.password];
+    const sql = 'INSERT INTO users (firstName, lastName, username, email, title, role, password, companyName) VALUES (?,?,?,?,?,?,?,?)';
+    const values = [user.firstName, user.lastName, user.username, user.email, user.title, user.role, user.password, user.companyName];
     const result: OkPacket = await dal.execute(sql, values);
     
     user.id = result.insertId;

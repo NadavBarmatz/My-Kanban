@@ -1,4 +1,3 @@
-import { OkPacket } from "mysql2";
 import jwt from "../01-utils/jwt";
 import ClientError from "../03-Models/client-error";
 import UserModel from "../03-Models/user-model";
@@ -28,9 +27,9 @@ async function updateUser(user: UserModel): Promise<string> {
         userToUpdate[prop] = user[prop];
     }
 
-    const sql = "UPDATE users SET firstName = ?, lastName = ?, username = ?, email = ?, title = ?, role = ?, password = ? WHERE id = ?";
+    const sql = "UPDATE users SET firstName = ?, lastName = ?, username = ?, email = ?, title = ?, role = ?, password = ?, companyName = ? WHERE id = ?";
     const values = [userToUpdate.firstName, userToUpdate.lastName, userToUpdate.username, userToUpdate.email, 
-        userToUpdate.title, userToUpdate.role, userToUpdate.password, userToUpdate.id];
+        userToUpdate.title, userToUpdate.role, userToUpdate.password, userToUpdate.id, userToUpdate.companyName];
     await dal.execute(sql, values)
 
     userToUpdate.password = undefined;

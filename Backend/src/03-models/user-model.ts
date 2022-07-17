@@ -9,6 +9,7 @@ class UserModel {
     public title: string;
     public password: string;
     public role: number;
+    public companyName: string;
 
     public constructor(user: UserModel){
         this.id = user.id;
@@ -19,6 +20,7 @@ class UserModel {
         this.title = user.title;
         this.password = user.password;
         this.role = user.role;
+        this.companyName = user.companyName;
     };
 
     static postValidationSchema = Joi.object({
@@ -29,7 +31,8 @@ class UserModel {
         email: Joi.string().email({minDomainSegments: 2, tlds: {allow: ['com', 'net', 'co.il']}}),
         title: Joi.string().optional(),
         password: Joi.string().min(4).required(),
-        role: Joi.number().required()
+        role: Joi.number().required(),
+        companyName: Joi.string().required()
     });
 
     static putValidationSchema = Joi.object({
@@ -40,7 +43,8 @@ class UserModel {
         email: Joi.string().email({minDomainSegments: 2, tlds: {allow: ['com', 'net', 'co.il']}}),
         title: Joi.string().required(),
         password: Joi.string().min(4).required(),
-        role: Joi.number().required()
+        role: Joi.number().required(),
+        companyName: Joi.string().required()
     });
 
     public validatePost() {
